@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#17151c">
+<title>Bunpou with Candra</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#17151c;--card:#221f2b;--line:#342f41;--tx:#f3eee9;--mu:#a29bb0;--ac:#f4a259;--ok:#7fd196;--bad:#f08a8a;--b:#26324f;--g:#23392e;--p:#4a2a38}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 "Noto Sans JP",system-ui,-apple-system,"Segoe UI",sans-serif;padding-top:env(safe-area-inset-top)}
+#app{max-width:480px;margin:0 auto;padding:16px 16px 100px}
+h1{font-size:22px;margin:4px 0}h2{font-size:17px;margin:20px 0 10px}h3{font-size:14px;margin:14px 0 6px;color:var(--mu)}
+.mu{color:var(--mu);font-size:13px}.center{text-align:center}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:8px}
+.hero{background:linear-gradient(135deg,#5a3d1f,#2b2333);border-radius:22px;padding:22px;margin-bottom:12px}
+.hero p{margin:4px 0 0;color:#e9d9c4}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.big{font-size:26px;font-weight:700}.big small{font-size:12px;font-weight:400;color:var(--mu)}
+.bar{height:7px;border-radius:7px;background:var(--line);margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac)}
+.dots{display:flex;gap:4px;margin-top:8px}.dots i{flex:1;aspect-ratio:1;border-radius:50%;background:var(--line);font-style:normal;font-size:9px;display:grid;place-items:center;color:var(--mu)}.dots i.on{background:var(--ok);color:#10261a}
+.m3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.m{border:0;border-radius:20px;padding:14px 12px;min-height:140px;text-align:left;position:relative;overflow:hidden;color:var(--tx);font:inherit;cursor:pointer}
+.m b{display:block;font-size:16px}.m small{font-size:11px;opacity:.75}.m em{position:absolute;right:6px;bottom:0;font-size:54px;font-style:normal;font-weight:700;opacity:.28}
+.q1{background:var(--b)}.q2{background:var(--g)}.q3{background:var(--p)}
+.k{display:flex;gap:10px;align-items:center;text-align:left;width:100%;font:inherit;color:var(--tx);cursor:pointer;margin:0}
+.k i{flex:none;width:36px;height:36px;border-radius:10px;background:#3a3550;display:grid;place-items:center;font-style:normal;font-size:18px}
+.k small{display:block;color:var(--mu);font-size:11px}
+.it{display:flex;justify-content:space-between;align-items:center;width:100%;color:var(--tx);font:inherit;text-align:left;cursor:pointer}
+.it span{color:var(--ok)}
+.btn{display:block;width:100%;padding:13px;margin:10px 0;border:0;border-radius:14px;background:var(--ac);color:#2a1a08;font:inherit;font-weight:700;cursor:pointer}
+.btn.alt{background:#3a3550;color:var(--tx)}.btn.ghost{background:none;border:1px solid var(--line);color:var(--mu)}.btn:disabled{opacity:.4}
+.pn{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{display:block;width:100%;text-align:left;padding:13px;margin:8px 0;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--tx);font:inherit;cursor:pointer}
+.opt.ok{border-color:var(--ok);background:#1f3a2b}.opt.bad{border-color:var(--bad);background:#3f2327}
+.q{font-size:18px;margin:8px 0}.q u{text-decoration:none;border-bottom:2px solid var(--ac);padding:0 14px}
+.okt{color:var(--ok);font-weight:700}.badt{color:var(--bad);font-weight:700}
+.bx{display:inline-flex;gap:6px;margin:4px;vertical-align:middle}
+.bx i{min-width:56px;min-height:36px;border:1px dashed var(--mu);border-radius:10px;display:inline-grid;place-items:center;font-style:normal;padding:0 6px;color:var(--ac);font-size:15px}
+.bx i.f{border-style:solid;color:var(--tx);background:#2f2a3d}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--tx);font:inherit;cursor:pointer}
+.w{display:grid;grid-template-columns:1fr auto;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}.w:last-child{border:0}
+.w em{grid-column:1/3;font-style:normal;color:var(--ac);font-size:14px}.w small{color:var(--mu);align-self:center}
+.hid .w:not(.s) small,.hid .w:not(.s) em{visibility:hidden}
+.jp{font-size:19px}
+.lnk{background:none;border:0;color:var(--mu);font:inherit;padding:4px 0;cursor:pointer}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav div{max-width:480px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr)}
+nav button{background:none;border:0;color:var(--mu);font:inherit;font-size:11px;padding:8px 0;cursor:pointer}
+nav b{display:block;font-size:20px;font-weight:400}nav .on{color:var(--ac);font-weight:700}
+button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<nav><div>
+<button data-v="home" onclick="go('home')"><b>🏠</b>Beranda</button>
+<button data-v="bunpou" onclick="go('bunpou')"><b>📘</b>Bunpou</button>
+<button data-v="kosakata" onclick="go('kosakata')"><b>🔤</b>Kosakata</button>
+<button data-v="latihan" onclick="go('latihan')"><b>✏️</b>Latihan</button>
+</div></nav>
+<script>
+// ===== DATA MATERI: [judul, rumus, jepang, romaji, arti] =====
+const B=[
+["Perkenalan diri","N1 は N2 です = N1 adalah N2. Tambah か di akhir untuk bertanya. も = juga.","わたしは がくせいです。","Watashi wa gakusei desu.","Saya adalah pelajar."],
+["Benda di sekitar","これ / それ / あれ は N です. この / その / あの harus diikuti kata benda.","これは ほんです。","Kore wa hon desu.","Ini buku."],
+["Tempat","N は (tempat) です = N ada di (tempat). ここ = sini, そこ = situ, あそこ = sana.","トイレは あそこです。","Toire wa asoko desu.","Toilet ada di sana."],
+["Waktu & aktivitas","(waktu) に V ます. A から B まで = dari A sampai B.","まいあさ ６じに おきます。","Maiasa rokuji ni okimasu.","Setiap pagi saya bangun jam 6."],
+["Bepergian","(tempat) へ いきます / きます / かえります. で = kendaraan, と = bersama.","バスで がっこうへ いきます。","Basu de gakkou e ikimasu.","Saya pergi ke sekolah naik bus."],
+["Kegiatan sehari-hari","N を V ます. (tempat) で V. V ませんか = ajakan, V ましょう = ayo.","いっしょに コーヒーを のみませんか。","Issho ni koohii o nomimasen ka.","Mau minum kopi bersama?"],
+["Memberi & menerima","(alat) で V. (orang) に N を あげます / もらいます.","ともだちに ほんを もらいました。","Tomodachi ni hon o moraimashita.","Saya menerima buku dari teman."],
+["Kata sifat","い-adj: ～くない = negatif. な-adj + な + kata benda.","ここは しずかな まちです。","Koko wa shizuka na machi desu.","Ini kota yang tenang."],
+["Suka, bisa, alasan","N が すきです / わかります. S から、～ = karena S, maka ～.","わたしは すしが すきです。","Watashi wa sushi ga suki desu.","Saya suka sushi."],
+["Keberadaan","(tempat) に N が あります (benda mati) / います (makhluk hidup).","つくえの うえに ほんが あります。","Tsukue no ue ni hon ga arimasu.","Ada buku di atas meja."],
+["Jumlah","N を (jumlah) V. (waktu) に (jumlah) かい = frekuensi.","りんごを みっつ かいました。","Ringo o mittsu kaimashita.","Saya membeli tiga apel."],
+["Lampau & perbandingan","A は B より ～ = A lebih ～ dari B. ～の なかで ～が いちばん ～ = paling.","この ラーメンは あれより おいしいです。","Kono raamen wa are yori oishii desu.","Ramen ini lebih enak daripada itu."],
+["Keinginan & tujuan","N が ほしいです. V ます-form + たいです. N に いきます = pergi untuk ～.","にほんへ いきたいです。","Nihon e ikitai desu.","Saya ingin pergi ke Jepang."],
+["Bentuk て (1)","V て ください = tolong ～. V ています = sedang ～. V ましょうか = mau saya ～kan?","ちょっと まって ください。","Chotto matte kudasai.","Tolong tunggu sebentar."],
+["Izin & larangan","V て も いいです = boleh ～. V て は いけません = dilarang ～.","ここで しゃしんを とっても いいです。","Koko de shashin o totte mo ii desu.","Boleh memotret di sini."],
+["Menyambung kalimat","V て、V て、V ます = urutan kegiatan. V て から = setelah ～.","ごはんを たべてから、はを みがきます。","Gohan o tabete kara, ha o migakimasu.","Setelah makan, saya menyikat gigi."],
+["Bentuk ない","V ないで ください = tolong jangan ～. V なければ なりません = harus ～. V なくても いいです = tidak perlu ～.","ここに はいらないで ください。","Koko ni hairanaide kudasai.","Tolong jangan masuk ke sini."],
+["Bentuk kamus","V こと が できます = bisa ～. V まえに = sebelum ～.","にほんごを はなすことが できます。","Nihongo o hanasu koto ga dekimasu.","Saya bisa berbicara bahasa Jepang."],
+["Bentuk た","V た ことが あります = pernah ～. V たり、V たり します = melakukan ～ dan ～.","にほんへ いった ことが あります。","Nihon e itta koto ga arimasu.","Saya pernah pergi ke Jepang."],
+["Ragam biasa","Dengan teman: ます diganti bentuk kamus, です diganti だ atau dihilangkan.","いっしょに たべる？","Issho ni taberu?","Mau makan bareng?"],
+["Pendapat","(bentuk biasa) と おもいます = saya pikir ～. ～と いいます = bilang ～. でしょう？ = ～, kan?","あした あめが ふると おもいます。","Ashita ame ga furu to omoimasu.","Saya pikir besok hujan."],
+["Menerangkan benda","(klausa) + N = N yang ～. Subjek di dalam klausa memakai が.","これは わたしが かった ほんです。","Kore wa watashi ga katta hon desu.","Ini buku yang saya beli."],
+["Ketika & konsekuensi","V とき、～ = ketika ～. V と、～ = kalau ～, otomatis ～.","ほんを よむとき、めがねを かけます。","Hon o yomu toki, megane o kakemasu.","Saat membaca buku, saya memakai kacamata."],
+["Memberi & menerima (2)","V て くれます / あげます / もらいます = melakukan ～ untuk / oleh seseorang.","ともだちが てつだって くれました。","Tomodachi ga tetsudatte kuremashita.","Teman membantu saya."],
+["Pengandaian","V たら、～ = kalau / setelah ～. V ても、～ = walaupun ～.","あめが ふったら、いきません。","Ame ga futtara, ikimasen.","Kalau hujan, saya tidak pergi."]
+];
+// Kosakata: jepang|romaji|arti
+const K=["おはよう ございます|ohayou gozaimasu|selamat pagi","ありがとう|arigatou|terima kasih","すみません|sumimasen|permisi / maaf","はい|hai|ya","いいえ|iie|tidak","わたし|watashi|saya","ともだち|tomodachi|teman","せんせい|sensei|guru","がくせい|gakusei|pelajar","がっこう|gakkou|sekolah","ほん|hon|buku","みず|mizu|air","ごはん|gohan|nasi / makan","たべます|tabemasu|makan","のみます|nomimasu|minum","いきます|ikimasu|pergi","みます|mimasu|melihat","よみます|yomimasu|membaca","おおきい|ookii|besar","ちいさい|chiisai|kecil","あたらしい|atarashii|baru","おいしい|oishii|enak","たかい|takai|tinggi / mahal","やすい|yasui|murah","きょう|kyou|hari ini","あした|ashita|besok","きのう|kinou|kemarin","いま|ima|sekarang","どこ|doko|di mana","なに|nani|apa"];
+// Partikel: [kalimat, jawaban, opsi, penjelasan]
+const P=[
+["まいあさ ６じ＿ おきます。","に","で を に が","に menunjukkan waktu."],
+["パン＿ たべます。","を","が を に で","を menandai objek."],
+["バス＿ がっこうへ いきます。","で","に を と で","で menunjukkan alat / kendaraan."],
+["ともだち＿ いっしょに えいがを みます。","と","と に で を","と berarti bersama."],
+["にほんご＿ わかります。","が","を に が で","わかります memakai が."],
+["つくえの うえ＿ ほんが あります。","に","で に を と","に menunjukkan tempat keberadaan."],
+["この りんごは あれ＿ おいしいです。","より","より から まで と","より berarti daripada."],
+["９じから ５じ＿ はたらきます。","まで","に で まで を","A から B まで = dari A sampai B."]
+];
+// Kanji: [kanji, hiragana, opsi, arti]
+const KJ=[
+["学生","がくせい","がっせい がくせい がくしょう がくぜい","pelajar"],
+["先生","せんせい","せんしょう さんせい せんせい せいせん","guru"],
+["水","みず","すい みづ みす みず","air"],
+["山","やま","さん やま やみ ざん","gunung"],
+["今日","きょう","きよう きょう こんひ きんにち","hari ini"],
+["昨日","きのう","きよう ぎのう さくひ きのう","kemarin"],
+["学校","がっこう","がくこう がこう がっごう がっこう","sekolah"],
+["電車","でんしゃ","でんしや でんしゃ てんしゃ でんじゃ","kereta"],
+["友達","ともだち","ともたち ともだち ゆうたつ どもだち","teman"],
+["時計","とけい","じけい とけい ときけい とけえ","jam"]
+];
+// Cerita rumpang: [teks {n}, arti, [[opsi, jawaban],...]]
+const C=[
+["きのうは どようびでした。わたしは ともだち{0}デパートへ いきました。くつ{1}かいました。{2}、ひるごはんを たべました。","Kemarin hari Sabtu. Saya pergi ke mal bersama teman. Saya membeli sepatu. Lalu, kami makan siang.",[["に と を で","と"],["が へ を で","を"],["でも どうして それから どこ","それから"]]],
+["わたしの へやには つくえと いすが{0}。ねこは へやの そとに{1}。","Di kamar saya ada meja dan kursi. Kucing ada di luar kamar.",[["あります います あげます もらいます","あります"],["あります います あげます もらいます","います"]]]
+];
+// Susun kalimat ★: [awalan, urutan benar, akhiran, arti, bolehTukar12]
+const SU=[
+["",["コーヒーと","おちゃと","どちらが","すき"],"ですか。","Mana yang lebih kamu suka, kopi atau teh?",1],
+["",["あそこに","いる","ひとは","わたしの"],"せんせいです。","Orang yang ada di sana adalah guru saya.",0],
+["ごはんを ",["たべて","から","はを","みがいて"]," ねます。","Setelah makan, saya menyikat gigi lalu tidur.",0],
+["あした ",["あめが","ふる","と","おもい"],"ます。","Saya pikir besok hujan.",0]
+];
+
+// ===== STATE & UTILITAS =====
+const $=s=>document.querySelector(s),app=$("#app");
+let S={done:{},dates:[],best:{}};
+try{S=Object.assign(S,JSON.parse(localStorage.getItem("bwc")||"{}"))}catch(e){}
+const save=()=>{try{localStorage.setItem("bwc",JSON.stringify(S))}catch(e){}};
+const ds=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const mark=()=>{const t=ds(new Date());if(!S.dates.includes(t)){S.dates.push(t);save()}};
+const streak=()=>{let n=0,d=new Date();if(!S.dates.includes(ds(d)))d.setDate(d.getDate()-1);while(S.dates.includes(ds(d))){n++;d.setDate(d.getDate()-1)}return n};
+const sh=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const nav=v=>document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v==v));
+const hd=(t,s)=>`<h1>${t}</h1><p class="mu">${s}</p>`;
+function go(v){nav(v);({home,bunpou,kosakata:kosa,latihan})[v]();scrollTo(0,0)}
+
+// ===== BERANDA =====
+function home(){
+  const dn=Object.keys(S.done).length,h=new Date().getHours(),g=h<11?"Ohayou":h<18?"Konnichiwa":"Konbanwa";
+  const d=new Date(),dow=(d.getDay()+6)%7;
+  const wk="SSRKJSM".split("").map((c,i)=>{const x=new Date(d);x.setDate(d.getDate()-dow+i);return `<i class="${S.dates.includes(ds(x))?"on":""}">${c}</i>`}).join("");
+  app.innerHTML=`<div class="hero"><h1>${g}, Candra!</h1><p>Semangat belajar hari ini!<br>Langkah kecil menuju mimpi besar.</p></div>
+  <div class="g2"><div class="card"><div class="mu">Progres Bab</div><div class="big">${dn} <small>/ 25 bab</small></div><div class="bar"><i style="width:${dn*4}%"></i></div></div>
+  <div class="card"><div class="mu">Streak Belajar</div><div class="big">${streak()} <small>hari</small></div><div class="dots">${wk}</div></div></div>
+  <h2>Menu Utama</h2><div class="m3">
+  <button class="m q1" onclick="go('bunpou')"><b>Bunpou</b><small>Tata bahasa Bab 1-25</small><em>文</em></button>
+  <button class="m q2" onclick="go('kosakata')"><b>Kosakata</b><small>Kotoba dasar N5</small><em>言</em></button>
+  <button class="m q3" onclick="go('latihan')"><b>Latihan</b><small>Kuis & soal</small><em>練</em></button></div>
+  <h2>Latihan Cepat</h2><div class="g2">
+  <button class="card k" onclick="nav('latihan');lat('p')"><i>助</i><span>Partikel<small>Pilih partikel</small></span></button>
+  <button class="card k" onclick="nav('latihan');lat('k')"><i>漢</i><span>Kanji → Hiragana<small>Pilih bacaan</small></span></button>
+  <button class="card k" onclick="nav('latihan');lat('c')"><i>話</i><span>Cerita Rumpang<small>Isi bagian kosong</small></span></button>
+  <button class="card k" onclick="nav('latihan');lat('s')"><i>★</i><span>Susun Kalimat<small>Soal bintang</small></span></button></div>`;
+}
+
+// ===== BUNPOU =====
+function bunpou(){
+  app.innerHTML=hd("Bunpou","Ketuk bab untuk mulai belajar")+B.map((b,i)=>`<button class="card it" onclick="bab(${i})"><div><div class="mu">Bab ${i+1}</div>${b[0]}</div>${S.done[i]?"<span>✓ Selesai</span>":""}</button>`).join("");
+}
+function bab(i){
+  nav("bunpou");mark();const[t,r,j,ro,ar]=B[i],d=S.done[i];
+  app.innerHTML=`<button class="lnk" onclick="go('bunpou')">‹ Daftar bab</button><div class="mu">Bab ${i+1}</div><h1>${t}</h1>
+  <h3>Rumus</h3><div class="card">${r}</div>
+  <h3>Contoh</h3><div class="card"><div class="jp">${j}</div><div class="mu">${ro}</div><div>${ar}</div></div>
+  <button class="btn" onclick="bq(${i})">Latihan bab ini</button>
+  <button class="btn ${d?"ghost":"alt"}" onclick="tg(${i})">${d?"✓ Selesai (batalkan)":"Tandai selesai"}</button>
+  <div class="pn">${i>0?`<button class="btn ghost" onclick="bab(${i-1})">‹ Bab ${i}</button>`:"<span></span>"}${i<24?`<button class="btn ghost" onclick="bab(${i+1})">Bab ${i+2} ›</button>`:""}</div>`;
+  scrollTo(0,0);
+}
+function tg(i){S.done[i]?delete S.done[i]:S.done[i]=1;save();bab(i)}
+function bq(i){
+  const o=sh(B.filter((_,k)=>k!=i)).slice(0,3),x=B[i];
+  run(`Bab ${i+1}`,[
+    {q:`Apa arti kalimat ini?<div class="jp">${x[2]}</div>`,o:[x[4],...o.map(b=>b[4])],a:x[4],e:x[3]},
+    {q:`Mana kalimat Jepang untuk: <b>${x[4]}</b>`,o:[x[2],...o.map(b=>b[2])],a:x[2],e:x[3]}
+  ],"b"+i,`bab(${i})`,(s,n)=>{if(s==n){S.done[i]=1;save()}});
+}
+
+// ===== KOSAKATA =====
+function kosa(){
+  app.innerHTML=hd("Kosakata","Ketuk kata untuk melihat arti saat disembunyikan")+`<button class="btn alt" onclick="this.nextElementSibling.classList.toggle('hid')">Sembunyikan / tampilkan arti</button><div class="card">${K.map(w=>{const[a,b,c]=w.split("|");return `<div class="w" onclick="this.classList.toggle('s')"><span class="jp">${a}</span><small>${b}</small><em>${c}</em></div>`}).join("")}</div>`;
+}
+
+// ===== LATIHAN =====
+function latihan(){
+  const bs=k=>S.best[k]!=null?`Skor terbaik: ${S.best[k]}`:"Belum dicoba";
+  app.innerHTML=hd("Latihan","Pilih jenis soal")+`
+  <button class="card k" onclick="lat('p')"><i>助</i><span>Partikel<small>${P.length} soal · ${bs("p")}</small></span></button>
+  <button class="card k" onclick="lat('k')"><i>漢</i><span>Kanji → Hiragana<small>${KJ.length} soal · ${bs("k")}</small></span></button>
+  <button class="card k" onclick="lat('c')"><i>話</i><span>Cerita Rumpang<small>${C.reduce((n,c)=>n+c[2].length,0)} kolom · ${bs("c")}</small></span></button>
+  <button class="card k" onclick="lat('s')"><i>★</i><span>Susun Kalimat<small>${SU.length} soal · ${bs("su")}</small></span></button>
+  <p class="mu">Latihan per bab ada di halaman masing-masing bab.</p>`;
+}
+function lat(k){
+  if(k=="s")return susun(1);
+  const Q={p:P.map(([s,a,o,e])=>({q:s.replace("＿","<u>　　</u>"),o:o.split(" "),a,e})),
+  k:KJ.map(([k,a,o,ar])=>({q:`Bacaan <b class="jp">${k}</b> (${ar})?`,o:o.split(" "),a})),
+  c:C.flatMap(([t,ar,bl])=>bl.map((b,j)=>({q:t.replace(/\{(\d)\}/g,(m,n)=>n==j?"<u>　　</u>":bl[n][1]),o:b[0].split(" "),a:b[1],e:ar})))}[k];
+  run({p:"Partikel",k:"Kanji → Hiragana",c:"Cerita Rumpang"}[k],Q,k,"go('latihan')");
+}
+
+// ===== MESIN KUIS PILIHAN GANDA =====
+let RUN;
+function run(t,Q,key,back,fn){RUN={t,Q:sh(Q),key,back,fn,i:0,s:0};step()}
+function step(){
+  const r=RUN;
+  if(r.i>=r.Q.length){
+    if(r.s>(S.best[r.key]||0))S.best[r.key]=r.s;save();mark();if(r.fn)r.fn(r.s,r.Q.length);
+    app.innerHTML=`<button class="lnk" onclick="${r.back}">‹ Kembali</button><h1>${r.t}</h1><div class="card center"><div class="big">${r.s}/${r.Q.length}</div><p class="mu">Skor terbaik: ${S.best[r.key]}</p></div><button class="btn" onclick="run(RUN.t,RUN.Q,RUN.key,RUN.back,RUN.fn)">Ulangi</button>`;return;
+  }
+  const q=r.Q[r.i];
+  app.innerHTML=`<button class="lnk" onclick="${r.back}">‹ Kembali</button><div class="mu">${r.t} · Soal ${r.i+1} dari ${r.Q.length}</div><div class="card q">${q.q}</div>${sh(q.o).map(o=>`<button class="opt" data-o="${o}" onclick="pick(this)">${o}</button>`).join("")}<div id="fb"></div>`;
+  scrollTo(0,0);
+}
+function pick(b){
+  const q=RUN.Q[RUN.i],ok=b.dataset.o===q.a;
+  document.querySelectorAll(".opt").forEach(x=>{x.disabled=1;if(x.dataset.o===q.a)x.classList.add("ok")});
+  if(ok)RUN.s++;else b.classList.add("bad");
+  $("#fb").innerHTML=`<p class="${ok?"okt":"badt"}">${ok?"Benar!":"Kurang tepat. Jawaban: "+q.a}</p><p class="mu">${q.e||""}</p><button class="btn" onclick="RUN.i++;step()">${RUN.i+1<RUN.Q.length?"Lanjut":"Lihat skor"}</button>`;
+}
+
+// ===== SUSUN KALIMAT ★ =====
+let SI=0,SS=0,SL=[],SP=[],SR=0;
+function susun(f){
+  if(f){SI=0;SS=0}
+  if(SI>=SU.length){
+    S.best.su=Math.max(S.best.su||0,SS);save();mark();
+    app.innerHTML=`<button class="lnk" onclick="go('latihan')">‹ Latihan</button><h1>Susun Kalimat ★</h1><div class="card center"><div class="big">${SS}/${SU.length}</div><p class="mu">Skor terbaik: ${S.best.su}</p></div><button class="btn" onclick="susun(1)">Ulangi</button>`;return;
+  }
+  SL=[];SR=0;SP=sh(SU[SI][1]);dS();
+}
+function dS(){
+  const[pre,pt,suf,ar]=SU[SI];
+  app.innerHTML=`<button class="lnk" onclick="go('latihan')">‹ Latihan</button><div class="mu">Susun Kalimat ★ · Soal ${SI+1} dari ${SU.length}</div>
+  <div class="card q jp">${pre}<span class="bx">${[0,1,2,3].map(k=>`<i class="${SL[k]?"f":""}" onclick="rm(${k})">${SL[k]||(k==2?"★":"")}</i>`).join("")}</span>${suf}</div>
+  <p class="mu">${ar}</p>
+  <div class="chips">${SP.filter(x=>!SL.includes(x)).map(x=>`<button class="chip" onclick="ad(${SP.indexOf(x)})">${x}</button>`).join("")}</div>
+  ${SR?`<p class="${SR==1?"okt":"badt"}">${SR==1?"Benar!":"Urutan yang benar:"}</p><p class="jp">${pre}${pt.join("")}${suf}</p><button class="btn" onclick="SI++;susun()">${SI+1<SU.length?"Lanjut":"Lihat skor"}</button>`:`<button class="btn" ${SL.length<4?"disabled":""} onclick="ck()">Periksa</button>`}`;
+}
+function ad(i){if(SR||SL.length>=4)return;SL.push(SP[i]);dS()}
+function rm(k){if(SR||!SL[k])return;SL.splice(k,1);dS()}
+function ck(){
+  const pt=SU[SI][1],a=SL.join(""),ok=a==pt.join("")||(SU[SI][4]&&a==[pt[1],pt[0],pt[2],pt[3]].join(""));
+  SR=ok?1:2;if(ok)SS++;dS();
+}
+
+go("home");
+</script>
+</body>
+</html>
